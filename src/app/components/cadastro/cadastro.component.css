@@ -1,0 +1,36 @@
+.painel {
+    padding-top: 20px;
+    border-top: 1px solid #008316;
+    width: 100%;
+    position: relative;
+}
+
+.botao-ativo {
+    background-color: #008316;
+    color: #fff;
+    position: left;
+    text-align: center;
+    font-weight: bold;
+    font-size: 0.75rem;
+    padding: 10px 0px;
+    width: 200px;
+    cursor: pointer;
+    border-radius: 3px 3px 0px 0px;
+    margin: 30px 5px 0px 5px;
+    float: left;
+}
+
+.botao-inativo {
+    background-color: #ccc;
+    color: #fff;
+    position: left;
+    text-align: center;
+    font-weight: bold;
+    font-size: 0.75rem;
+    padding: 10px 0px;
+    width: 200px;
+    cursor: pointer;
+    border-radius: 3px 3px 0px 0px;
+    margin: 30px 5px 0px 5px;
+    float: left;
+}

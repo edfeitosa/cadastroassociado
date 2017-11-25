@@ -1,0 +1,32 @@
+.topbar {
+    background: linear-gradient(to right, #008316 0%, #5ec58c 100%);
+    padding-left: 30px;
+}
+
+.navbar-primary.collapsed {
+  width: 70px !important;
+  height: 72px !important;
+  overflow: hidden;
+}
+
+.navbar-primary.collapsed .glyphicon {
+  font-size: 22px;
+}
+
+.navbar-primary.collapsed .nav-label {
+  display: none;
+}
+
+.logo-icon {
+  display: none;
+}
+
+.logo-full.collapsed {
+  display: none;
+}
+
+.logo-icon.collapsed {
+  display: block;
+  width: 50px;
+  margin-top: 12px;
+}

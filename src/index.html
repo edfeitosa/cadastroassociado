@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <base href="./">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- config js -->
+    <script src="systemjs.config.server.js"></script>
+    <!-- main -->
+    <script>
+      System.import('main.ts').catch(function(err){ console.error(err); });
+    </script>
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/servicon.ico">
+    <title>Cadastro de Novo Usuário</title>
+  </head>
+  <body class="fix-header fix-sidebar card-no-border">
+    <app-root>
+      <div class="preloader">
+          <svg class="circular" viewBox="25 25 50 50">
+              <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+          </svg>
+      </div>
+    </app-root>
+  </body>
+</html>

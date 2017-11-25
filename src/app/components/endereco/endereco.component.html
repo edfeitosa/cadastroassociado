@@ -1,0 +1,83 @@
+<div class="row">
+  <div class="col-lg-12">
+      <div class="card">
+          <div class="card-block">
+              <h2 class="card-title">Informe um telefone para contato</h2>
+
+              <h4 class="card-subtitle" style="margin-bottom: 30px;">
+                Informe pelo menos um telefone, para que sendo necessário, entremos em contato.  
+              </h4>
+
+              <div class="clear"></div>
+
+              <p>Os campos marcados com <b>(*)</b> são de preenchimento obrigatório.</p>
+              <form novalidate [formGroup]="formTelefone" (ngSubmit)="formTelefone_submit(content)">
+                  <div class="row" class="col-lg-12">
+                      <div class="form-group"
+                          [ngClass]="{
+                              'has-danger': telefone.invalid && (telefone.dirty || telefone.touched),
+                              'has-success': telefone.valid && (telefone.dirty || telefone.touched)
+                          }">
+                          <label class="titulo-input">Telefone (*)</label>
+                          <input type="text" class="form-control" formControlName="telefone" placeholder="Digite apenas números" [textMask]="{mask: telMask}" required>
+                          <div class="form-control-feedback" *ngIf="telefone.errors && (telefone.dirty || telefone.touched)">
+                              <p *ngIf="telefone.errors.required">Você precisa informar um número de telefone para continuar</p>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row" class="col-lg-12">
+                      <div class="form-group">
+                          <label class="titulo-input">Ramal</label>
+                          <input type="text" class="form-control" formControlName="ramal" placeholder="Esta informação é opicional">
+                      </div>
+                  </div>
+                  <div class="row" class="col-lg-12 opcoes">
+                      <div class="form-group">
+                          <input type="checkbox" value="sim" id="whatsapp" formControlName="whatsapp" />
+                          <label class="titulo-input" for="whatsapp">WhatsApp</label>
+                      </div>
+                  </div>
+                  <div class="row" class="col-lg-12 opcoes">
+                      <div class="form-group">
+                          <input type="checkbox" value="sim" id="sms" formControlName="sms" />
+                          <label class="titulo-input" for="sms">SMS</label>
+                      </div>
+                  </div>
+                  <div class="row" class="col-lg-6">
+                      <div class="form-actions">
+                          <button type="submit" [disabled]="!formTelefone.valid" class="btn btn-success"><i class="fa fa-check"></i> Continuar</button>
+                      </div>
+                  </div>
+              </form>
+
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- modal
+<div class="row">
+  <div class="col-md-6">							
+      <ng-template #content let-c="close" let-d="dismiss">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h4 class="modal-title">{{tituloOut}}</h4>
+                  <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <p>{{mensagemOut}}</p>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" (click)="c('Close click')">{{botaoOut}}</button>
+              </div>
+          </div>
+      </ng-template>
+  </div>
+</div> -->
+
+<svl-modal
+[titulo] = "'Sucesso'"
+[mensagem] = "'Funciona!'"
+[botao] = "'Ok'"></svl-modal>

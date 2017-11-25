@@ -1,0 +1,4 @@
+<div *ngFor="let item of navOut;">
+  <p *ngIf="item.url != ''" style="color: #f00;">{{item.etapa}}</p>
+  <p *ngIf="item.url == ''">{{item.etapa}}</p>
+</div>

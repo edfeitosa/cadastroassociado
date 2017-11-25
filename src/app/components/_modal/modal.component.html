@@ -1,0 +1,21 @@
+<!-- modal -->
+<div class="row">
+    <div class="col-md-6">							
+        <ng-template #content let-c="close" let-d="dismiss">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{tituloOut}}</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>{{mensagemOut}}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="c('Close click')">{{botaoOut}}</button>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</div>

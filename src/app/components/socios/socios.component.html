@@ -1,0 +1,73 @@
+<div class="row">
+  <div class="col-lg-12">
+      <div class="card">
+          <div class="card-block">
+              <h2 class="card-title">Adicionando sócio</h2>
+
+              <h4 class="card-subtitle" style="margin-bottom: 30px;">
+                Informe pelo menos um sócio, que será o responsável pela empresa.  
+              </h4>
+
+              <div class="clear"></div>
+
+              <p>Os campos marcados com <b>(*)</b> são de preenchimento obrigatório.</p>
+              <form novalidate [formGroup]="formSocio" (ngSubmit)="formSocio_submit(content)">
+                  <div class="row" class="col-lg-12">
+                      <div class="form-group"
+                          [ngClass]="{
+                              'has-danger': cpf.invalid && (cpf.dirty || cpf.touched),
+                              'has-success': cpf.valid && (cpf.dirty || cpf.touched)
+                          }">
+                          <label class="titulo-input">CPF (*)</label>
+                          <input type="text" class="form-control" formControlName="cpf" placeholder="Digite apenas números" [textMask]="{mask: cpfMask}" required>
+                          <div class="form-control-feedback" *ngIf="cpf.errors && (cpf.dirty || cpf.touched)">
+                              <p *ngIf="cpf.errors.required">Você precisa informar o CPF para continuar.</p>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row" class="col-lg-12">
+                    <div class="form-group"
+                        [ngClass]="{
+                            'has-danger': nome.invalid && (nome.dirty || nome.touched),
+                            'has-success': nome.valid && (nome.dirty || nome.touched)
+                        }">
+                        <label class="titulo-input">Nome (*)</label>
+                        <input type="text" class="form-control" formControlName="nome" placeholder="Digite no nome do sócio" required>
+                        <div class="form-control-feedback" *ngIf="nome.errors && (nome.dirty || nome.touched)">
+                            <p *ngIf="nome.errors.required">Informe o nome do sócio que será adicionado.</p>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="row" class="col-lg-6">
+                      <div class="form-actions">
+                          <button type="submit" [disabled]="!formSocio.valid" class="btn btn-success"><i class="fa fa-check"></i> Continuar</button>
+                      </div>
+                  </div>
+              </form>
+
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- modal -->
+<div class="row">
+  <div class="col-md-6">							
+      <ng-template #content let-c="close" let-d="dismiss">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h4 class="modal-title">{{tituloOut}}</h4>
+                  <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <p>{{mensagemOut}}</p>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" (click)="c('Close click')">{{botaoOut}}</button>
+              </div>
+          </div>
+      </ng-template>
+  </div>
+</div>

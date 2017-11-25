@@ -1,0 +1,219 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-block">
+                <h2 class="card-title">Seus dados pessoais ou da sua empresa</h2>
+
+                <h4 class="card-subtitle">
+                  Caso você esteja fazendo seu cadastro próprio, utilize a opção "Cadastro de Pessoa Física". 
+                  Caso seja da sua empresa, clique em "Cadastrar Pessoa Jurírica" para preencher os dados.  
+                </h4>
+
+                <div class="botao-ativo" id="botao-a" (click)="controle_exibicao('fisica', 'juridica', 'botao-a', 'botao-b')">
+                    Cadastro de Pessoa Física
+                </div>
+
+                <div class="botao-inativo" id="botao-b" (click)="controle_exibicao('juridica', 'fisica', 'botao-b', 'botao-a')">
+                    Cadastro de Pessoa Jurídica
+                </div>
+
+                <div class="clear"></div>
+
+                <!-- form pessoa física -->
+                <div id="fisica" class="painel">
+                    <p>Os campos marcados com <b>(*)</b> são de preenchimento obrigatório.</p>
+                    <form novalidate [formGroup]="formFisica" (ngSubmit)="formFisica_submit(content)">
+                        <div class="row" class="col-lg-12">
+                            <div class="form-group"
+                                [ngClass]="{
+                                    'has-danger': cpf.invalid && (cpf.dirty || cpf.touched),
+                                    'has-success': cpf.valid && (cpf.dirty || cpf.touched)
+                                }">
+                                <label class="titulo-input">CPF (*)</label>
+                                <input type="text" class="form-control" formControlName="cpf" placeholder="Digite apenas números" [textMask]="{mask: cpfMask}" required>
+                                <div class="form-control-feedback" *ngIf="cpf.errors && (cpf.dirty || cpf.touched)">
+                                    <p *ngIf="cpf.errors.required">Antes de continuar, você precisa informar o CPF</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" class="col-lg-12">
+                            <div class="form-group">
+                                <label class="titulo-input">E-mail</label>
+                                <input type="text" class="form-control" formControlName="email" placeholder="Digite seu e-mail principal">
+                            </div>
+                        </div>
+                        <div class="row" class="col-lg-12">
+                            <div class="form-group"
+                                [ngClass]="{
+                                    'has-danger': nome.invalid && (nome.dirty || nome.touched),
+                                    'has-success': nome.valid && (nome.dirty || nome.touched)
+                                }">
+                                <label class="titulo-input">Nome (*)</label>
+                                <input type="text" class="form-control" formControlName="nome" placeholder="Digite seu nome" required>
+                                <div class="form-control-feedback" *ngIf="nome.errors && (nome.dirty || nome.touched)">
+                                    <p *ngIf="nome.errors.required">Antes de continuar, informe seu nome</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" class="col-lg-12">
+                            <div class="form-group">
+                                <label class="titulo-input">RG</label>
+                                <input type="text" class="form-control" formControlName="rg" placeholder="Digite seu RG">
+                            </div>
+                        </div>
+                        <div class="row" class="col-lg-12">
+                            <div class="form-group">
+                                <label class="titulo-input">Data de nascimento (Apenas números)</label>
+                                <input type="text" class="form-control" formControlName="nascimento" placeholder="Digite sua data de nascimento" [textMask]="{mask: dtnascimento}">
+                            </div>
+                        </div>
+                        <div class="row" class="col-lg-12 opcoes">
+                            <div class="form-group">
+                                <input type="checkbox" value="sim" id="emancipado" formControlName="emancipado" />
+                                <label class="titulo-input" for="emancipado">Emancipado</label>
+                            </div>
+                        </div>
+                        <div class="row" class="col-lg-12">
+                            <div class="form-group">
+                                <label class="titulo-input">Nome da mãe</label>
+                                <input type="text" class="form-control" formControlName="mae" placeholder="Digite o nome da sua mãe">
+                            </div>
+                        </div>
+                        <div class="row" class="col-lg-12">
+                            <div class="form-group">
+                                <label class="titulo-input">Nome como é conhecido</label>
+                                <input type="text" class="form-control" formControlName="conhecido" placeholder="Digite aqui o nome como é conhecido">
+                            </div>
+                        </div>
+                        <div class="row" class="col-lg-12 opcoes margin-bottom">
+                            <label class="titulo-input">Sexo</label>
+                            <div class="exemplo-radio">
+                                <input type="radio" value="m" name="sexo" id="masculino" formControlName="sexo" />
+                                <label for="masculino">Masculino</label>
+                                <input type="radio" value="f" name="sexo" id="feminino" formControlName="sexo" />
+                                <label for="feminino">Feminino</label>
+                            </div>
+                        </div>
+                        <div class="row" class="col-lg-6">
+                            <div class="form-group">
+                                <label class="titulo-input">Estado Civil</label>
+                                <select class="form-control" formControlName="estadoCivil">
+                                    <option value="sel">-- Selecione uma opção --</option>
+                                    <option value="sol">Solteiro(a)</option>
+                                    <option value="cas">Casado(a)</option>
+                                    <option value="sep">Separado(a) (Judicialmente)</option>
+                                    <option value="div">Divorciado(a)</option>
+                                    <option value="viu">Viúvo(a)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row" class="col-lg-6">
+                            <div class="form-group">
+                                <label class="titulo-input">Grau de Instrução</label>
+                                <select class="form-control" formControlName="instrucao">
+                                    <option value="sel">-- Selecione uma opção --</option>
+                                    <option value="fun">Ensino Fundamental</option>
+                                    <option value="med">Ensino Médio</option>
+                                    <option value="sup">Ensino Superior</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row" class="col-lg-6">
+                            <div class="form-actions">
+                                <button type="submit" [disabled]="!formFisica.valid" class="btn btn-success"><i class="fa fa-check"></i> Continuar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- form pessoa jurídica -->
+                <div id="juridica" class="painel">
+                    <p>Os campos marcados com <b>(*)</b> são de preenchimento obrigatório.</p>
+                    <form novalidate [formGroup]="formJuridica" (ngSubmit)="formJuridica_submit(content)">
+                        <div class="row" class="col-lg-12">
+                            <div class="form-group"
+                                [ngClass]="{
+                                    'has-danger': cnpj.invalid && (cnpj.dirty || cnpj.touched),
+                                    'has-success': cnpj.valid && (cnpj.dirty || cnpj.touched)
+                                }">
+                                <label class="titulo-input">CNPJ (*)</label>
+                                <input type="text" class="form-control" formControlName="cnpj" placeholder="Digite apenas números" [textMask]="{mask: cnpjMask}" required>
+                                <div class="form-control-feedback" *ngIf="cnpj.errors && (cnpj.dirty || cnpj.touched)">
+                                    <p *ngIf="cnpj.errors.required">Antes de continuar, você precisa informar o CNPJ</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" class="col-lg-12">
+                            <div class="form-group"
+                                [ngClass]="{
+                                    'has-danger': razao.invalid && (razao.dirty || razao.touched),
+                                    'has-success': razao.valid && (razao.dirty || razao.touched)
+                                }">
+                                <label class="titulo-input">Razão Social (*)</label>
+                                <input type="text" class="form-control" formControlName="razao" placeholder="Digite a Razão Social" required>
+                                <div class="form-control-feedback" *ngIf="razao.errors && (razao.dirty || razao.touched)">
+                                    <p *ngIf="razao.errors.required">Antes de continuar, informe a Razão Social</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" class="col-lg-12">
+                            <div class="form-group">
+                                <label class="titulo-input">Nome Fantasia</label>
+                                <input type="text" class="form-control" formControlName="fantasia" placeholder="Digite aqui o nome fantasia">
+                            </div>
+                        </div>
+                        <div class="row" class="col-lg-12">
+                            <div class="form-group">
+                                <label class="titulo-input">Seguimento Empresarial</label>
+                                <input type="text" class="form-control" formControlName="empresarial" placeholder="Digite aqui o seguimento empresarial">
+                            </div>
+                        </div>
+                        <div class="row" class="col-lg-12">
+                            <div class="form-group">
+                                <label class="titulo-input">Vendedor</label>
+                                <input type="text" class="form-control" formControlName="vendedor" placeholder="Nome do vendedor">
+                            </div>
+                        </div>
+                        <div class="row" class="col-lg-12">
+                            <div class="form-group">
+                                <label class="titulo-input">Origem do cliente</label>
+                                <input type="text" class="form-control" formControlName="origem" placeholder="Origem do cliente">
+                            </div>
+                        </div>
+                        <div class="row" class="col-lg-6">
+                            <div class="form-actions">
+                                <button type="submit" [disabled]="!formJuridica.valid" class="btn btn-success"><i class="fa fa-check"></i> Continuar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- navegação itens cadastro 
+                <svl-navigation></svl-navigation> -->
+  
+            </div>
+        </div>
+    </div>
+  </div>
+  
+  <!-- modal -->
+  <div class="row">
+    <div class="col-md-6">							
+        <ng-template #content let-c="close" let-d="dismiss">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{tituloOut}}</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>{{mensagemOut}}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="c('Close click')">{{botaoOut}}</button>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</div>
