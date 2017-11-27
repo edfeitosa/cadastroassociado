@@ -2,6 +2,7 @@ import { Component, OnInit, Input, NgModule } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
+import cep from 'cep-promise';
 
 import { ModalComponent } from '../../components/_modal/modal.component';
 
@@ -76,8 +77,10 @@ export class EnderecoComponent implements OnInit {
 
   // submit
   formEndereco_submit(content) {
-    console.log("Funciona!");
-    this.modal_mens("Algo está errado...", "O CPF informado não é válido. Verifique o valor digitado e tente novamente.", "OK", content);
+    // str.replace(/[^\d]+/g,'')
+    console.log(cep(this.formEndereco.controls.cep.value.replace(/[^\d]+/g,'').toString()));
+    /* console.log("Funciona!");
+    this.modal_mens("Algo está errado...", "O CPF informado não é válido. Verifique o valor digitado e tente novamente.", "OK", content);*/
   }
 
 }
