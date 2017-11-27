@@ -12,7 +12,7 @@
 
               <p>Os campos marcados com <b>(*)</b> são de preenchimento obrigatório.</p>
               <form novalidate [formGroup]="formSocio" (ngSubmit)="formSocio_submit(content)">
-                  <div class="row" class="col-lg-12">
+                  <div class="col-lg-12">
                       <div class="form-group"
                           [ngClass]="{
                               'has-danger': cpf.invalid && (cpf.dirty || cpf.touched),
@@ -25,7 +25,7 @@
                           </div>
                       </div>
                   </div>
-                  <div class="row" class="col-lg-12">
+                  <div class="col-lg-12">
                     <div class="form-group"
                         [ngClass]="{
                             'has-danger': nome.invalid && (nome.dirty || nome.touched),
@@ -46,8 +46,11 @@
               </form>
 
               <h4 class="margin">Sócios já adicionados</h4>
-              <div class="item" *ngFor="let item of itensOut">
-                  <div class="excluir" title="Retirar sócio da lista">X</div>
+              <div class="alert" *ngIf="itensOut == null || itensOut == ''">
+                Ainda não existem sócios cadastrados.
+              </div>
+              <div class="item" *ngFor="let item of itensOut; let i = index">
+                  <div class="excluir" title="Retirar sócio da lista" (click)="item_delete(i)">X</div>
                   {{item.nome}}
                   <div class="subtitulo">{{item.cpf}}</div>
               </div>

@@ -8138,3 +8138,41 @@ File: scss
 .margin-bottom {
   margin-bottom: 20px;
 }
+
+.margin {
+  margin: 20px 0px;
+}
+
+.item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  color: #666;
+  background-color: #f1f1f1;
+  margin-bottom: 20px;
+  border-radius: 3px;
+}
+
+.item .excluir {
+  float: right;
+  color: #f00;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.subtitulo {
+  font-size: 0.75rem;
+}
+
+.alert {
+  border: 1px solid #ff8500;
+  border-radius: 3px;
+  color: #ff8500;
+  background-color: #fdf9bd;
+}
+
+form {
+  padding: 10px 0px 20px 0px;
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}

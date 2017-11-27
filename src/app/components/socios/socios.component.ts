@@ -22,6 +22,7 @@ export class SociosComponent implements OnInit {
   // máscara
   private cpfMask: Array<string | RegExp>
 
+  // variaveis
   public tituloOut: string;
   public mensagemOut: string;
   public botaoOut: string;
@@ -45,7 +46,6 @@ export class SociosComponent implements OnInit {
     this.modalComponent.open2(content);
   }
 
-  // carrega modal
   modal_mens(titulo, mensagem, botao, content) {
     this.tituloOut = titulo;
     this.mensagemOut = mensagem;
@@ -53,7 +53,7 @@ export class SociosComponent implements OnInit {
     this.open(content);
   }
 
-  // form pessoa jurídica
+  // form
   formSocio_group() {
     this.formSocio = new FormGroup({
       cpf: this.cpf,
@@ -72,26 +72,52 @@ export class SociosComponent implements OnInit {
     if (new Validation().valida_cpf(this.formSocio.controls.cpf.value) == false) {
       this.modal_mens("Algo está errado...", "O CPF informado não é válido. Verifique o valor digitado e tente novamente.", "OK", content);
     } else {
-      let itens = [];
-      if (isNull(localStorage.getItem('socios'))) {
-        itens.push({
-          id: 0,
-          cpf: this.formSocio.controls.cpf.value,
-          nome: this.formSocio.controls.nome.value
-        });
-        localStorage.setItem('socios', JSON.stringify(itens));
+      if (this.item_existente(this.formSocio.controls.cpf.value) == true) {
+        this.modal_mens("CPF já informado...", "O CPF e usuário informado, já adicionado à lista.", "OK", content);
       } else {
         let itens = [];
-        itens = JSON.parse(localStorage.getItem('socios'));
-        let total = itens.length;
-        itens.push({
-          id: total,
-          cpf: this.formSocio.controls.cpf.value,
-          nome: this.formSocio.controls.nome.value
-        });
-        localStorage.setItem('socios', JSON.stringify(itens));
+        if (isNull(localStorage.getItem('socios'))) {
+          itens.push({
+            cpf: this.formSocio.controls.cpf.value,
+            nome: this.formSocio.controls.nome.value
+          });
+          localStorage.setItem('socios', JSON.stringify(itens));
+        } else {
+          let itens = JSON.parse(localStorage.getItem('socios'));
+          itens.push({
+            cpf: this.formSocio.controls.cpf.value,
+            nome: this.formSocio.controls.nome.value
+          });
+          localStorage.setItem('socios', JSON.stringify(itens));
+        }
+        this.form_validation();
+        this.formSocio_group();
+        this.itensOut = (!isNull(localStorage.getItem('socios'))) ? JSON.parse(localStorage.getItem('socios')) : '';
       }
     }
-    window.location.reload();
   }
+
+  // deleta item
+  item_delete(item) {
+    let itens = [];
+    itens = JSON.parse(localStorage.getItem('socios'));
+    itens.splice(item, 1);
+    localStorage.setItem('socios', JSON.stringify(itens));
+    this.itensOut = (!isNull(localStorage.getItem('socios'))) ? JSON.parse(localStorage.getItem('socios')) : '';
+  }
+
+  // verifica existência
+  item_existente(item): boolean {
+    let retorno = false;
+    let itens = JSON.parse(localStorage.getItem('socios'));
+    for (let i = 0; i < itens.length; i++) {
+      if (item == itens[i].cpf) {
+        retorno = true;
+      } else {
+        retorno = false;
+      }
+    }
+    return retorno;
+  }
+
 }
