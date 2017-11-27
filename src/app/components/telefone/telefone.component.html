@@ -45,10 +45,21 @@
                     </div>
                     <div class="row" class="col-lg-6">
                         <div class="form-actions">
-                            <button type="submit" [disabled]="!formTelefone.valid" class="btn btn-success"><i class="fa fa-check"></i> Continuar</button>
+                            <button type="submit" [disabled]="!formTelefone.valid" class="btn btn-success"><i class="fa fa-check"></i> Adicionar</button>
                         </div>
                     </div>
                 </form>
+
+                <h4 class="margin">Telefones já adicionados</h4>
+                <div class="alert" *ngIf="itensOut == null || itensOut == ''">
+                  Ainda não existem telefones cadastrados.
+                </div>
+                <div class="item" *ngFor="let item of itensOut; let i = index">
+                    <div class="excluir" title="Retirar telefone da lista" (click)="item_delete(i)">X</div>
+                    <strong>Telefone: </strong>{{item.telefone}} <span *ngIf="item.ramal != ''">|| <strong>Ramal: </strong>{{item.ramal}}</span>
+                    <div class="subtitulo">{{item.whatsapp}}</div>
+                    <div class="subtitulo">{{item.sms}}</div>
+                </div>
   
             </div>
         </div>

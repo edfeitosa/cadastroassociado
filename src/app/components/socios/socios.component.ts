@@ -73,7 +73,7 @@ export class SociosComponent implements OnInit {
       this.modal_mens("Algo está errado...", "O CPF informado não é válido. Verifique o valor digitado e tente novamente.", "OK", content);
     } else {
       if (this.item_existente(this.formSocio.controls.cpf.value) == true) {
-        this.modal_mens("CPF já informado...", "O CPF e usuário informado, já adicionado à lista.", "OK", content);
+        this.modal_mens("CPF já informado...", "O CPF e usuário informado, já foi adicionado à lista.", "OK", content);
       } else {
         let itens = [];
         if (isNull(localStorage.getItem('socios'))) {
@@ -109,12 +109,14 @@ export class SociosComponent implements OnInit {
   // verifica existência
   item_existente(item): boolean {
     let retorno = false;
-    let itens = JSON.parse(localStorage.getItem('socios'));
-    for (let i = 0; i < itens.length; i++) {
-      if (item == itens[i].cpf) {
-        retorno = true;
-      } else {
-        retorno = false;
+    if (!isNull(localStorage.getItem('socios'))) {
+      let itens = JSON.parse(localStorage.getItem('socios'));
+      for (let i = 0; i < itens.length; i++) {
+        if (item == itens[i].cpf) {
+          retorno = true;
+        } else {
+          retorno = false;
+        }
       }
     }
     return retorno;
