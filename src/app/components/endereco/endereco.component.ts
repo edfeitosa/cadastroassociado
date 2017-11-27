@@ -70,12 +70,12 @@ export class EnderecoComponent implements OnInit {
     this.numero = new FormControl('', Validators.nullValidator);
     this.bairro = new FormControl('', Validators.required);
     this.complemento = new FormControl('', Validators.nullValidator);
-    this.estado = new FormControl('', Validators.required);
-    this.municipio = new FormControl('', Validators.required);
+    this.estado = new FormControl('', Validators.nullValidator);
+    this.municipio = new FormControl('', Validators.nullValidator);
   }
 
   // submit
-  formTelefone_submit(content) {
+  formEndereco_submit(content) {
     console.log("Funciona!");
     this.modal_mens("Algo está errado...", "O CPF informado não é válido. Verifique o valor digitado e tente novamente.", "OK", content);
   }

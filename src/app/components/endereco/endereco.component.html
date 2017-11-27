@@ -2,50 +2,70 @@
   <div class="col-lg-12">
       <div class="card">
           <div class="card-block">
-              <h2 class="card-title">Informe um telefone para contato</h2>
+              <h2 class="card-title">Informe um endereço</h2>
 
               <h4 class="card-subtitle" style="margin-bottom: 30px;">
-                Informe pelo menos um telefone, para que sendo necessário, entremos em contato.  
+                Informe um ou mais endereços.  
               </h4>
 
               <div class="clear"></div>
 
               <p>Os campos marcados com <b>(*)</b> são de preenchimento obrigatório.</p>
-              <form novalidate [formGroup]="formTelefone" (ngSubmit)="formTelefone_submit(content)">
+              <form novalidate [formGroup]="formEndereco" (ngSubmit)="formEndereco_submit(content)">
                   <div class="row" class="col-lg-12">
                       <div class="form-group"
                           [ngClass]="{
-                              'has-danger': telefone.invalid && (telefone.dirty || telefone.touched),
-                              'has-success': telefone.valid && (telefone.dirty || telefone.touched)
+                              'has-danger': cep.invalid && (cep.dirty || cep.touched),
+                              'has-success': cep.valid && (cep.dirty || cep.touched)
                           }">
-                          <label class="titulo-input">Telefone (*)</label>
-                          <input type="text" class="form-control" formControlName="telefone" placeholder="Digite apenas números" [textMask]="{mask: telMask}" required>
-                          <div class="form-control-feedback" *ngIf="telefone.errors && (telefone.dirty || telefone.touched)">
-                              <p *ngIf="telefone.errors.required">Você precisa informar um número de telefone para continuar</p>
+                          <label class="titulo-input">CEP (*)</label>
+                          <input type="text" class="form-control" formControlName="cep" placeholder="Digite apenas números" [textMask]="{mask: cepMask}" required>
+                          <div class="form-control-feedback" *ngIf="cep.errors && (cep.dirty || cep.touched)">
+                              <p *ngIf="cep.errors.required">Informe o CEP antes de continuar</p>
                           </div>
                       </div>
                   </div>
                   <div class="row" class="col-lg-12">
+                    <div class="form-group"
+                        [ngClass]="{
+                            'has-danger': logradouro.invalid && (logradouro.dirty || logradouro.touched),
+                            'has-success': logradouro.valid && (logradouro.dirty || logradouro.touched)
+                        }">
+                        <label class="titulo-input">Logradouro (*)</label>
+                        <input type="text" class="form-control" formControlName="logradouro" placeholder="Rua, Avenida etc." required>
+                        <div class="form-control-feedback" *ngIf="logradouro.errors && (logradouro.dirty || logradouro.touched)">
+                            <p *ngIf="logradouro.errors.required">Informe um endereço antes de continuar</p>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="row" class="col-lg-12">
                       <div class="form-group">
-                          <label class="titulo-input">Ramal</label>
-                          <input type="text" class="form-control" formControlName="ramal" placeholder="Esta informação é opicional">
+                          <label class="titulo-input">Número</label>
+                          <input type="numero" class="form-control" formControlName="numero" placeholder="Número da residência">
                       </div>
                   </div>
-                  <div class="row" class="col-lg-12 opcoes">
-                      <div class="form-group">
-                          <input type="checkbox" value="sim" id="whatsapp" formControlName="whatsapp" />
-                          <label class="titulo-input" for="whatsapp">WhatsApp</label>
-                      </div>
+                  <div class="row" class="col-lg-12">
+                    <div class="form-group"
+                        [ngClass]="{
+                            'has-danger': bairro.invalid && (bairro.dirty || bairro.touched),
+                            'has-success': bairro.valid && (bairro.dirty || bairro.touched)
+                        }">
+                        <label class="titulo-input">Bairro (*)</label>
+                        <input type="text" class="form-control" formControlName="bairro" placeholder="Informe o bairro" required>
+                        <div class="form-control-feedback" *ngIf="bairro.errors && (bairro.dirty || bairro.touched)">
+                            <p *ngIf="bairro.errors.required">Informe o bairro antes de continuar</p>
+                        </div>
+                    </div>
                   </div>
-                  <div class="row" class="col-lg-12 opcoes">
-                      <div class="form-group">
-                          <input type="checkbox" value="sim" id="sms" formControlName="sms" />
-                          <label class="titulo-input" for="sms">SMS</label>
-                      </div>
+                  <div class="row" class="col-lg-12">
+                    <div class="form-group">
+                        <label class="titulo-input">Complemento</label>
+                        <input type="complemento" class="form-control" formControlName="complemento" placeholder="Informe o complemento para o endereço">
+                    </div>
                   </div>
                   <div class="row" class="col-lg-6">
                       <div class="form-actions">
-                          <button type="submit" [disabled]="!formTelefone.valid" class="btn btn-success"><i class="fa fa-check"></i> Continuar</button>
+                          <button type="submit" [disabled]="!formEndereco.valid" class="btn btn-success"><i class="fa fa-check"></i> Continuar</button>
                       </div>
                   </div>
               </form>
@@ -55,7 +75,7 @@
   </div>
 </div>
 
-<!-- modal
+<!-- modal -->
 <div class="row">
   <div class="col-md-6">							
       <ng-template #content let-c="close" let-d="dismiss">
@@ -75,9 +95,4 @@
           </div>
       </ng-template>
   </div>
-</div> -->
-
-<svl-modal
-[titulo] = "'Sucesso'"
-[mensagem] = "'Funciona!'"
-[botao] = "'Ok'"></svl-modal>
+</div>

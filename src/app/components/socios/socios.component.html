@@ -45,6 +45,13 @@
                   </div>
               </form>
 
+              <h4 class="margin">Sócios já adicionados</h4>
+              <div class="item" *ngFor="let item of itensOut">
+                  <div class="excluir" title="Retirar sócio da lista">X</div>
+                  {{item.nome}}
+                  <div class="subtitulo">{{item.cpf}}</div>
+              </div>
+
           </div>
       </div>
   </div>

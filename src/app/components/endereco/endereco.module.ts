@@ -6,7 +6,6 @@ import { NgbModal, ModalDismissReasons, NgbActiveModal, NgbModule } from '@ng-bo
 import { HttpModule } from '@angular/http';
 import { TextMaskModule } from 'angular2-text-mask';
 
-import { ModalModule } from '../../components/_modal/modal.module';
 import { EnderecoComponent } from './endereco.component';
 import { routingEndereco } from './endereco.routing';
 
@@ -22,7 +21,6 @@ import { NavigationModule } from '../navigation/navigation.module';
     routingEndereco,
     NgbModule.forRoot(),
     TextMaskModule,
-    ModalModule,
     NavigationModule
   ],
   exports: [

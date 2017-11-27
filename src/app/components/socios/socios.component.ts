@@ -4,6 +4,8 @@ import { ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormControl } 
 import { Observable } from 'rxjs';
 
 import { ModalComponent } from '../../components/_modal/modal.component';
+import { Validation } from '../../functions/validation';
+import { isNull } from 'util';
 
 @Component({
   selector: 'svl-socios',
@@ -23,9 +25,11 @@ export class SociosComponent implements OnInit {
   public tituloOut: string;
   public mensagemOut: string;
   public botaoOut: string;
+  public itensOut: any[];
 
   constructor(
-    private modalComponent: ModalComponent
+    private modalComponent: ModalComponent,
+    private router: Router
   ) {
     this.cpfMask = [/[0-9]/, /\d/, /\d/, '.', /[0-9]/, /\d/, /\d/, '.', /[0-9]/, /\d/, /\d/, '-', /[0-9]/, /\d/]
   }
@@ -33,6 +37,7 @@ export class SociosComponent implements OnInit {
   ngOnInit() {
     this.form_validation();
     this.formSocio_group();
+    this.itensOut = (!isNull(localStorage.getItem('socios'))) ? JSON.parse(localStorage.getItem('socios')) : '';
   }
 
   // modal
@@ -64,7 +69,29 @@ export class SociosComponent implements OnInit {
 
   // submit
   formSocio_submit(content) {
-    console.log("Funciona!");
+    if (new Validation().valida_cpf(this.formSocio.controls.cpf.value) == false) {
+      this.modal_mens("Algo está errado...", "O CPF informado não é válido. Verifique o valor digitado e tente novamente.", "OK", content);
+    } else {
+      let itens = [];
+      if (isNull(localStorage.getItem('socios'))) {
+        itens.push({
+          id: 0,
+          cpf: this.formSocio.controls.cpf.value,
+          nome: this.formSocio.controls.nome.value
+        });
+        localStorage.setItem('socios', JSON.stringify(itens));
+      } else {
+        let itens = [];
+        itens = JSON.parse(localStorage.getItem('socios'));
+        let total = itens.length;
+        itens.push({
+          id: total,
+          cpf: this.formSocio.controls.cpf.value,
+          nome: this.formSocio.controls.nome.value
+        });
+        localStorage.setItem('socios', JSON.stringify(itens));
+      }
+    }
+    window.location.reload();
   }
-
 }

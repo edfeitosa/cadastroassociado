@@ -51,7 +51,7 @@ export class Combos {
             { value: "BA", option: "Bahia" },
             { value: "CE", option: "Ceará" },
             { value: "DF", option: "Distrito Federal" },
-            { value: "ES", option: "Espírito Santo" },
+            { value: "ES", option: "Espírito Santo" }, 
             { value: "GO", option: "Goiás" },
             { value: "MA", option: "Maranhão" },
             { value: "MT", option: "Mato Grosso" },
