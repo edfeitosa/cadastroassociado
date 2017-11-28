@@ -11,7 +11,7 @@
               <div class="clear"></div>
 
               <p>Os campos marcados com <b>(*)</b> são de preenchimento obrigatório.</p>
-              <form novalidate [formGroup]="formEndereco" (ngSubmit)="formEndereco_submit(content)">
+              <form novalidate name="formEndereco" [formGroup]="formEndereco" (ngSubmit)="formEndereco_submit(content)">
                   <div class="row" class="col-lg-12">
                       <div class="form-group"
                           [ngClass]="{
@@ -32,7 +32,7 @@
                             'has-success': logradouro.valid && (logradouro.dirty || logradouro.touched)
                         }">
                         <label class="titulo-input">Logradouro (*)</label>
-                        <input type="text" class="form-control" formControlName="logradouro" placeholder="Rua, Avenida etc." required>
+                        <input type="text" name="logradouro" class="form-control" formControlName="logradouro" placeholder="Rua, Avenida etc." required>
                         <div class="form-control-feedback" *ngIf="logradouro.errors && (logradouro.dirty || logradouro.touched)">
                             <p *ngIf="logradouro.errors.required">Informe um endereço antes de continuar</p>
                         </div>

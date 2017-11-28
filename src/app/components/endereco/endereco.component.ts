@@ -2,9 +2,10 @@ import { Component, OnInit, Input, NgModule } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import cep from 'cep-promise';
+import { default as cep } from 'cep-promise';
 
 import { ModalComponent } from '../../components/_modal/modal.component';
+import { Validation } from 'app/functions/validation';
 
 @Component({
   selector: 'svl-endereco',
@@ -30,7 +31,7 @@ export class EnderecoComponent implements OnInit {
   constructor(
     private modalComponent: ModalComponent
   ) {
-    this.cepMask = [/[0-9]/, /\d/, '.', /[0-9]/, /\d/, /\d/, '-', /[0-9]/, /\d/, /\d/]
+    this.cepMask = [/[0-9]/, /\d/, /[0-9]/, /\d/, /\d/, '-', /[0-9]/, /\d/, /\d/]
   }
 
   ngOnInit() {
@@ -65,22 +66,43 @@ export class EnderecoComponent implements OnInit {
   }
 
   // validação inputs
-  form_validation() {
-    this.cep = new FormControl('', Validators.required);
-    this.logradouro = new FormControl('', Validators.required);
-    this.numero = new FormControl('', Validators.nullValidator);
-    this.bairro = new FormControl('', Validators.required);
+  form_validation(
+    cepVal = '',
+    logradouroVal = '',
+    bairroVal = '',
+    estadoVal = '',
+    municipioVal = ''
+  ) {
+    this.cep = new FormControl(cepVal, Validators.required);
+    this.logradouro = new FormControl(logradouroVal, Validators.required);
+    this.numero = new FormControl('', Validators.compose([ Validators.nullValidator ]));
+    this.bairro = new FormControl(bairroVal, Validators.required);
     this.complemento = new FormControl('', Validators.nullValidator);
-    this.estado = new FormControl('', Validators.nullValidator);
-    this.municipio = new FormControl('', Validators.nullValidator);
+    this.estado = new FormControl(estadoVal, Validators.nullValidator);
+    this.municipio = new FormControl(municipioVal, Validators.nullValidator);
   }
+
+  // verifica se cep é válido
+  valida_cep(numCep, content) {
+    let retorno = [];
+    return cep(numCep.replace(/[^\d]+/g,''))
+      .then(data => {
+        this.form_validation(data.cep, data.street, data.neighborhood, data.state, data.city);
+        this.formEndereco_group();
+      })
+      .catch(data => {
+        this.form_validation(numCep);
+        this.formEndereco_group();
+        this.modal_mens("Algo está errado...", "O CEP informado não é válido ou não foi encontrado. Verifique o número digitado e tente novamente.", "OK", content);
+      });
+  }
+
+  // busca cep
+  
 
   // submit
   formEndereco_submit(content) {
-    // str.replace(/[^\d]+/g,'')
-    console.log(cep(this.formEndereco.controls.cep.value.replace(/[^\d]+/g,'').toString()));
-    /* console.log("Funciona!");
-    this.modal_mens("Algo está errado...", "O CPF informado não é válido. Verifique o valor digitado e tente novamente.", "OK", content);*/
+    this.valida_cep(this.formEndereco.controls.cep.value, content);
   }
 
 }
