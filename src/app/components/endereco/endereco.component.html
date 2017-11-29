@@ -11,64 +11,113 @@
               <div class="clear"></div>
 
               <p>Os campos marcados com <b>(*)</b> são de preenchimento obrigatório.</p>
-              <form novalidate name="formEndereco" [formGroup]="formEndereco" (ngSubmit)="formEndereco_submit(content)">
-                  <div class="row" class="col-lg-12">
+
+              <!-- form para busca de CEP -->
+              <div *ngIf="exibeValidaCep == true">
+                <form novalidate name="formValidaCep" [formGroup]="formValidaCep" (ngSubmit)="formValidaCep_submit(content)">
+                    <div class="row" class="col-lg-12">
+                        <div class="form-group"
+                            [ngClass]="{
+                                'has-danger': buscaCep.invalid && (buscaCep.dirty || buscaCep.touched),
+                                'has-success': buscaCep.valid && (buscaCep.dirty || buscaCep.touched)
+                            }">
+                            <label class="titulo-input">CEP (*)</label>
+                            <input type="text" class="form-control" formControlName="buscaCep" placeholder="Digite apenas números" [textMask]="{mask: cepMask}" required>
+                            <div class="form-control-feedback" *ngIf="buscaCep.errors && (buscaCep.dirty || buscaCep.touched)">
+                                <p *ngIf="buscaCep.errors.required">Informe o CEP antes de continuar</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" class="col-lg-6">
+                        <div class="form-actions">
+                            <button type="submit" [disabled]="!formValidaCep.valid" class="btn btn-success"><i class="fa fa-check"></i> Buscar</button>
+                        </div>
+                    </div>
+                </form>
+              </div>
+
+              <!-- form para preechimento do endereço -->
+              <div *ngIf="exibeEndereco == true">
+                <form novalidate name="formEndereco" [formGroup]="formEndereco" (ngSubmit)="formEndereco_submit(content)">
+                    <input type="hidden" formControlName="cep" value="" />
+                    <div class="row" class="col-lg-12">
                       <div class="form-group"
                           [ngClass]="{
-                              'has-danger': cep.invalid && (cep.dirty || cep.touched),
-                              'has-success': cep.valid && (cep.dirty || cep.touched)
+                              'has-danger': logradouro.invalid && (logradouro.dirty || logradouro.touched),
+                              'has-success': logradouro.valid && (logradouro.dirty || logradouro.touched)
                           }">
-                          <label class="titulo-input">CEP (*)</label>
-                          <input type="text" class="form-control" formControlName="cep" placeholder="Digite apenas números" [textMask]="{mask: cepMask}" required>
-                          <div class="form-control-feedback" *ngIf="cep.errors && (cep.dirty || cep.touched)">
-                              <p *ngIf="cep.errors.required">Informe o CEP antes de continuar</p>
+                          <label class="titulo-input">Logradouro (*)</label>
+                          <input type="text" name="logradouro" class="form-control" formControlName="logradouro" placeholder="Rua, Avenida etc." required>
+                          <div class="form-control-feedback" *ngIf="logradouro.errors && (logradouro.dirty || logradouro.touched)">
+                              <p *ngIf="logradouro.errors.required">Informe um endereço antes de continuar</p>
                           </div>
                       </div>
-                  </div>
-                  <div class="row" class="col-lg-12">
-                    <div class="form-group"
-                        [ngClass]="{
-                            'has-danger': logradouro.invalid && (logradouro.dirty || logradouro.touched),
-                            'has-success': logradouro.valid && (logradouro.dirty || logradouro.touched)
-                        }">
-                        <label class="titulo-input">Logradouro (*)</label>
-                        <input type="text" name="logradouro" class="form-control" formControlName="logradouro" placeholder="Rua, Avenida etc." required>
-                        <div class="form-control-feedback" *ngIf="logradouro.errors && (logradouro.dirty || logradouro.touched)">
-                            <p *ngIf="logradouro.errors.required">Informe um endereço antes de continuar</p>
+                    </div>
+                    <div class="row" class="col-lg-12">
+                        <div class="form-group">
+                            <label class="titulo-input">Número</label>
+                            <input type="numero" class="form-control" formControlName="numero" placeholder="Número da residência (se houver)">
                         </div>
                     </div>
-                  </div>
-                  <div class="row" class="col-lg-12">
+                    <div class="row" class="col-lg-12">
+                      <div class="form-group"
+                          [ngClass]="{
+                              'has-danger': bairro.invalid && (bairro.dirty || bairro.touched),
+                              'has-success': bairro.valid && (bairro.dirty || bairro.touched)
+                          }">
+                          <label class="titulo-input">Bairro (*)</label>
+                          <input type="text" class="form-control" formControlName="bairro" placeholder="Informe o bairro" required>
+                          <div class="form-control-feedback" *ngIf="bairro.errors && (bairro.dirty || bairro.touched)">
+                              <p *ngIf="bairro.errors.required">Informe o bairro antes de continuar</p>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="row" class="col-lg-12">
                       <div class="form-group">
-                          <label class="titulo-input">Número</label>
-                          <input type="numero" class="form-control" formControlName="numero" placeholder="Número da residência">
+                          <label class="titulo-input">Complemento</label>
+                          <input type="input" class="form-control" formControlName="complemento" placeholder="Informe o complemento para o endereço (se houver)">
                       </div>
-                  </div>
-                  <div class="row" class="col-lg-12">
-                    <div class="form-group"
-                        [ngClass]="{
-                            'has-danger': bairro.invalid && (bairro.dirty || bairro.touched),
-                            'has-success': bairro.valid && (bairro.dirty || bairro.touched)
-                        }">
-                        <label class="titulo-input">Bairro (*)</label>
-                        <input type="text" class="form-control" formControlName="bairro" placeholder="Informe o bairro" required>
-                        <div class="form-control-feedback" *ngIf="bairro.errors && (bairro.dirty || bairro.touched)">
-                            <p *ngIf="bairro.errors.required">Informe o bairro antes de continuar</p>
+                    </div>
+                    <div class="row" class="col-lg-12">
+                        <div class="form-group"
+                            [ngClass]="{
+                                'has-danger': municipio.invalid && (municipio.dirty || municipio.touched),
+                                'has-success': municipio.valid && (municipio.dirty || municipio.touched)
+                            }">
+                            <label class="titulo-input">Município (*)</label>
+                            <input type="text" class="form-control" formControlName="municipio" placeholder="Informe o nome da cidade" required>
+                            <div class="form-control-feedback" *ngIf="municipio.errors && (municipio.dirty || municipio.touched)">
+                                <p *ngIf="municipio.errors.required">Informe o nome da cidade antes de continuar</p>
+                            </div>
                         </div>
                     </div>
-                  </div>
-                  <div class="row" class="col-lg-12">
-                    <div class="form-group">
-                        <label class="titulo-input">Complemento</label>
-                        <input type="complemento" class="form-control" formControlName="complemento" placeholder="Informe o complemento para o endereço">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="titulo-input">Estado</label>
+                            <select class="form-control" formControlName="estado">
+                                <option *ngFor="let est of estadosOut;" [value]="est.value">{{est.option}}</option>
+                            </select>
+                        </div>
                     </div>
-                  </div>
-                  <div class="row" class="col-lg-6">
-                      <div class="form-actions">
-                          <button type="submit" [disabled]="!formEndereco.valid" class="btn btn-success"><i class="fa fa-check"></i> Continuar</button>
-                      </div>
-                  </div>
-              </form>
+                    <div class="row" class="col-lg-6">
+                        <div class="form-actions">
+                            <button type="submit" [disabled]="!formEndereco.valid" class="btn btn-success"><i class="fa fa-check"></i> Adicionar</button>
+                            <button class="btn btn-success" (click)="cancela_endereco()"><i class="mdi mdi-close"></i> Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+              </div>
+
+              <h4 class="margin">Endereços já adicionados</h4>
+              <div class="alert" *ngIf="itensOut == null || itensOut == ''">
+                Ainda não existem endereços cadastrados.
+              </div>
+              <div class="item" *ngFor="let item of itensOut; let i = index">
+                  <div class="excluir" title="Retirar sócio da lista" (click)="item_delete(i)">X</div>
+                  {{item.logradouro}} {{item.numero}}, {{item.bairro}} - {{item.municipio}}/{{item.estado}}<br />
+                  {{item.complemento}}
+                  <div class="subtitulo">CEP: {{item.cep}}</div>
+              </div>
 
           </div>
       </div>
