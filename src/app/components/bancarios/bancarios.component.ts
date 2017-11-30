@@ -55,7 +55,7 @@ export class BancariosComponent implements OnInit {
     this.open(content);
   }
 
-  // form pessoa jurídica
+  // form dados bancários
   formBancarios_group() {
     this.formBancarios = new FormGroup({
       cpf: this.cpf,
@@ -69,7 +69,6 @@ export class BancariosComponent implements OnInit {
   }
 
   formBancarios_validation() {
-    // form física
     this.cpf = new FormControl(!isNull(localStorage.getItem('cpf')) ? localStorage.getItem('cpf') : '', Validators.required);
     this.titular = new FormControl(!isNull(localStorage.getItem('titular')) ? localStorage.getItem('titular') : '', Validators.required);
     this.banco = new FormControl(!isNull(localStorage.getItem('banco')) ? localStorage.getItem('banco') : '0', Validators.required);
@@ -79,7 +78,7 @@ export class BancariosComponent implements OnInit {
     this.variacao = new FormControl(!isNull(localStorage.getItem('variacao')) ? localStorage.getItem('variacao') : '', Validators.nullValidator);
   }
 
-  // submit pessoa física
+  // submit
   formBancarios_submit(content) {
     if (new Validation().valida_cpf(this.formBancarios.controls.cpf.value) == false) {
       this.modal_mens("Algo está errado...", "O CPF informado não é válido. Verifique o valor digitado e tente novamente.", "OK", content);

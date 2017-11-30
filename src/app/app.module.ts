@@ -13,6 +13,7 @@ import { TelefoneModule } from './components/telefone/telefone.module';
 import { SociosModule } from './components/socios/socios.module';
 import { EnderecoModule } from './components/endereco/endereco.module';
 import { BancariosModule } from './components/bancarios/bancarios.module';
+import { ClientesModule } from './components/clientes/clientes.module';
 import { routing } from './app.routing';
 
 @NgModule({
@@ -29,6 +30,7 @@ import { routing } from './app.routing';
     SociosModule,
     EnderecoModule,
     BancariosModule,
+    ClientesModule,
     NavBarModule,
     routing
   ],

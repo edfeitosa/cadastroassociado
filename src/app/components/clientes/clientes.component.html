@@ -1,0 +1,124 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-block">
+                <h2 class="card-title">Clientes</h2>
+  
+                <h4 class="card-subtitle" style="margin-bottom: 30px;">
+                  Queremos conhecer um pouco sobre seu negócio.
+                </h4>
+  
+                <div class="clear"></div>
+  
+                <!-- form -->
+                <p>Os campos marcados com <b>(*)</b> são de preenchimento obrigatório.</p>
+                <form novalidate [formGroup]="formClientes" (ngSubmit)="formClientes_submit(content)">
+                  <div class="row" class="col-lg-12">
+                    <div class="form-group"
+                        [ngClass]="{
+                            'has-danger': fatura.invalid && (fatura.dirty || fatura.touched),
+                            'has-success': fatura.valid && (fatura.dirty || fatura.touched)
+                        }">
+                        <label class="titulo-input">Nome Fatura (*)</label>
+                        <input type="text" class="form-control" formControlName="fatura" maxlength="13" placeholder="Tamanho máximo: 13 caracteres" required>
+                        <div class="form-control-feedback" *ngIf="fatura.errors && (fatura.dirty || fatura.touched)">
+                            <p *ngIf="fatura.errors.required">Antes de continuar, você precisa informar o CPF</p>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="row" class="col-lg-12">
+                      <div class="form-group"
+                          [ngClass]="{
+                              'has-danger': fantasiaServeloja.invalid && (fantasiaServeloja.dirty || fantasiaServeloja.touched),
+                              'has-success': fantasiaServeloja.valid && (fantasiaServeloja.dirty || fantasiaServeloja.touched)
+                          }">
+                          <label class="titulo-input">Nome de fantasia cadastro Serveloja (*)</label>
+                          <input type="text" class="form-control" formControlName="fantasiaServeloja" placeholder="Fulano Empreserial" required>
+                          <div class="form-control-feedback" *ngIf="fantasiaServeloja.errors && (fantasiaServeloja.dirty || fantasiaServeloja.touched)">
+                              <p *ngIf="fantasiaServeloja.errors.required">Antes de continuar, informe o nome do titular da conta</p>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row" class="col-lg-12">
+                    <div class="form-group"
+                        [ngClass]="{
+                            'has-danger': mcc.invalid && (mcc.dirty || mcc.touched),
+                            'has-success': mcc.valid && (mcc.dirty || mcc.touched)
+                        }">
+                      <label class="titulo-input">MCC (*)</label>
+                      <select class="form-control" formControlName="mcc" required>
+                        <option value="0">-- Selecione ramo de atividade --</option>
+                        <!-- <option *ngFor="let est of estadosOut;" [value]="est.value">{{est.option}}</option> -->
+                      </select>
+                      <div class="form-control-feedback" *ngIf="mcc.errors && (mcc.dirty || mcc.touched)">
+                          <p *ngIf="mcc.errors.required">Antes de continuar, selecione um ramo de atividade (MCC)</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" class="col-lg-12">
+                    <div class="form-group">
+                        <label class="titulo-input">Valor implantação</label>
+                        <input type="text" class="form-control" formControlName="implantacao" placeholder="Valor de implantação (caso haja)">
+                    </div>
+                  </div>
+                  <div class="row" class="col-lg-12">
+                    <div class="form-group">
+                      <label class="titulo-input">Franquia (*)</label>
+                      <select class="form-control" formControlName="franquia">
+                        <option value="0">-- Selecione uma franquia (caso haja) --</option>
+                        <!-- <option *ngFor="let est of estadosOut;" [value]="est.value">{{est.option}}</option> -->
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row" class="col-lg-12">
+                    <div class="form-group"
+                        [ngClass]="{
+                            'has-danger': mensalidade.invalid && (mensalidade.dirty || mensalidade.touched),
+                            'has-success': mensalidade.valid && (mensalidade.dirty || mensalidade.touched)
+                        }">
+                      <label class="titulo-input">Tipo mensalidade (*)</label>
+                      <select class="form-control" formControlName="mensalidade" required>
+                        <option value="0">-- Selecione o seu plano --</option>
+                        <!-- <option *ngFor="let est of estadosOut;" [value]="est.value">{{est.option}}</option> -->
+                      </select>
+                      <div class="form-control-feedback" *ngIf="mensalidade.errors && (mensalidade.dirty || mensalidade.touched)">
+                          <p *ngIf="mensalidade.errors.required">Antes de continuar, selecione um plano</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" class="col-lg-6">
+                      <div class="form-actions">
+                          <button type="submit" [disabled]="!formClientes.valid" class="btn btn-success"><i class="fa fa-check"></i> Continuar</button>
+                      </div>
+                  </div>
+                </form>
+  
+                <!-- navegação itens cadastro 
+                <svl-navigation></svl-navigation> -->
+  
+            </div>
+        </div>
+    </div>
+  </div>
+  
+  <!-- modal -->
+  <div class="row">
+    <div class="col-md-6">							
+        <ng-template #content let-c="close" let-d="dismiss">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{tituloOut}}</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>{{mensagemOut}}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="c('Close click')">{{botaoOut}}</button>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+  </div>
